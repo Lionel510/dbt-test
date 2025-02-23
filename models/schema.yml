@@ -1,0 +1,52 @@
+version: 2
+
+models:
+  - name: customers
+    description: One record per customer
+    columns:
+      - name: customer_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
+      - name: name
+        description: Customer's name
+        tests:
+          - not_null
+
+  - name: stg_customers
+    description: Staging table for customers
+    columns:
+      - name: customer_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
+      - name: name
+        description: Customer's name
+        tests:
+          - not_null
+
+  - name: stg_orders
+    description: Staging table for orders
+    columns:
+      - name: order_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
+      - name: order_date
+        description: Date of order
+        tests:
+          - not_null
+      - name: total
+        description: Total amount of order
+        tests:
+          - not_null
+      - name: customer_id
+        description: Foreign key to customers
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
